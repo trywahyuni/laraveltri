@@ -54,7 +54,10 @@
 			class="btn btn-success btn-sm">
 				<i class="fa fa-w fa-edit"></i>
 			</a>
-			<button type="button" class="btn btn-danger btn-sm">
+			<button type="button" 
+			data-id={{ $dt->id 
+		}}
+			class="btn btn-danger btn-sm btn-trash">
 				<i class="fa fa-w fa-trash"></i>
 			</button>
 		</td>
@@ -68,3 +71,46 @@
 }}
 
 @endsection
+
+@push('modal')
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Delete</h5>
+				<button class="close" type="button" data-dismiss="modal">
+					<span aria-hidden="true">x</span>
+				</button>
+			</div> <!-- end modal header-->
+			<div class="modal-body">
+				Apakah anda yakiningin menghapusnya?
+				<form id="form-delete" method="post" action="#">
+					{{ method_field('delete') }}
+					{{ csrf_field() }}
+					<input type="hidden" name="id" id="input-id">
+				</form>
+			</div><!-- End Modal-->
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cencel</button>
+				<button class="btn btn-primary btn-delete" type="button">Delete</button>
+			</div><!-- End Modal Footer-->
+		</div>
+	</div>
+</div>
+@endpush
+
+@push('js')
+<script type="text/javascript">
+	$(function(){
+		$('.btn-trash').click(function(){
+			id=$(this).attr('data-id');
+			$('#input-id').val(id);
+			$('#deleteModal').modal('show');
+		});
+		
+		$('.btn-delete').click(function(){
+			alert($('#input-id').val());
+		});
+	});
+</script>
+@endpush
