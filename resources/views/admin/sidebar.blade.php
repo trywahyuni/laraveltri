@@ -20,5 +20,12 @@
             <span>Kategori</span>
           </a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('admin.produk')}}">
+            <i class="fas fa-fw fa-cube"></i>
+            <span>Produk</span>
+          </a>
+        </li>
         @endif
 </ul>
